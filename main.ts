@@ -1,5 +1,5 @@
-// pins.touch_set_mode(TouchTarget.P1, TouchTargetMode.CAPACITIVE)
-// pins.touch_set_mode(TouchTarget.P2, TouchTargetMode.CAPACITIVE)
+// pins.touch_set_mode(TouchTarget.P1, TouchTargetMode.CAPACITIVE) # - KAPACITNÍ    
+// pins.touch_set_mode(TouchTarget.P2, TouchTargetMode.CAPACITIVE) # - KAPACITNÍ
 let hra_zahajena = false
 let vysledek_int = 0
 let vysledek_str = "X"
@@ -24,14 +24,20 @@ function startovac() {
 control.inBackground(startovac)
 basic.forever(function on_forever() {
     
-    let pin1 = pins.analogReadPin(AnalogPin.P1)
-    let pin2 = pins.analogReadPin(AnalogPin.P2)
-    // is_pin1 = input.pin_is_pressed(TouchPin.P1)
-    // is_pin2 = input.pin_is_pressed(TouchPin.P2)
-    let is_pin1 = pin1 < 500
-    let is_pin2 = pin2 < 500
-    console.logValue("is_piN1", pin1)
-    console.logValue("is_piN2", pin2)
+    // pin1 = pins.analog_read_pin(AnalogPin.P1)  # - ANALOG
+    // pin2 = pins.analog_read_pin(AnalogPin.P2)  # - ANALOG
+    // is_pin1 = input.pin_is_pressed(TouchPin.P1) # - TOUCH
+    // is_pin2 = input.pin_is_pressed(TouchPin.P2) # - TOUCH
+    // is_pin1 = pin1 < 500  # - ANALOG
+    // is_pin2 = pin2 < 500  # - ANALOG
+    let is_pin1 = pins.digitalReadPin(DigitalPin.P1) == 0
+    //  - DIGITÁLNÍ
+    let is_pin2 = pins.digitalReadPin(DigitalPin.P2) == 0
+    //  - DIGITÁLNÍ
+    // console.log_value("is_piN1", is_pin1)
+    // console.log_value("is_piN2", is_pin1)
+    // console.log_value("pin1", pin1) # - ANALOG
+    // console.log_value("pin2", pin2) # - ANALOG
     if (hra_zahajena && klic) {
         if (is_pin1 && is_pin2) {
             vysledek_str = "R"
@@ -86,6 +92,7 @@ function vysledek() {
     
     if (splneno) {
         hra_zahajena = false
+        basic.pause(3000)
         control.inBackground(startovac)
     }
     

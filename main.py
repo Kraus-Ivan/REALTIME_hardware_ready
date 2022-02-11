@@ -1,5 +1,5 @@
-#pins.touch_set_mode(TouchTarget.P1, TouchTargetMode.CAPACITIVE)
-#pins.touch_set_mode(TouchTarget.P2, TouchTargetMode.CAPACITIVE)
+#pins.touch_set_mode(TouchTarget.P1, TouchTargetMode.CAPACITIVE) # - KAPACITNÍ    
+#pins.touch_set_mode(TouchTarget.P2, TouchTargetMode.CAPACITIVE) # - KAPACITNÍ
 
 hra_zahajena = False
 vysledek_int = 0
@@ -26,18 +26,24 @@ control.in_background(startovac)
 def on_forever():
     global hra_zahajena, vysledek_int, vysledek_str, klic, countA, countB
     
-    pin1 = pins.analog_read_pin(AnalogPin.P1)
-    pin2 = pins.analog_read_pin(AnalogPin.P2)
+    #pin1 = pins.analog_read_pin(AnalogPin.P1)  # - ANALOG
+    #pin2 = pins.analog_read_pin(AnalogPin.P2)  # - ANALOG
 
-    #is_pin1 = input.pin_is_pressed(TouchPin.P1)
-    #is_pin2 = input.pin_is_pressed(TouchPin.P2)
+    #is_pin1 = input.pin_is_pressed(TouchPin.P1) # - TOUCH
+    #is_pin2 = input.pin_is_pressed(TouchPin.P2) # - TOUCH
 
-    is_pin1 = pin1 < 500
-    is_pin2 = pin2 < 500
+    #is_pin1 = pin1 < 500  # - ANALOG
+    #is_pin2 = pin2 < 500  # - ANALOG
 
-    console.log_value("is_piN1",pin1)
-    console.log_value("is_piN2",pin2)
+    is_pin1 = pins.digital_read_pin(DigitalPin.P1) == 0 # - DIGITÁLNÍ
+    is_pin2 = pins.digital_read_pin(DigitalPin.P2) == 0 # - DIGITÁLNÍ
+
+    #console.log_value("is_piN1", is_pin1)
+    #console.log_value("is_piN2", is_pin1)
     
+    #console.log_value("pin1", pin1) # - ANALOG
+    #console.log_value("pin2", pin2) # - ANALOG
+
     if hra_zahajena and klic:
         if is_pin1  and is_pin2:
             vysledek_str = "R"
@@ -82,5 +88,6 @@ def vysledek():
 
     if splneno:
         hra_zahajena = False
+        basic.pause(3000)
         control.in_background(startovac)
 
