@@ -11,6 +11,13 @@ function startovac() {
     klic = true
     vysledek = []
     soundExpression.happy.play()
+    basic.showLeds(`
+    # # # # #
+    . # # # .
+    . . # . .
+    . # # # .
+    # # # # #
+    `)
     let nahodna_doba = randint(3000, 10000)
     basic.pause(nahodna_doba)
     hra_zahajena = true

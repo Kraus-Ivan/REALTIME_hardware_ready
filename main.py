@@ -11,6 +11,13 @@ def startovac():
     klic = True
     vysledek = []
     soundExpression.happy.play()
+    basic.show_leds("""
+    # # # # #
+    . # # # .
+    . . # . .
+    . # # # .
+    # # # # #
+    """)
     nahodna_doba = randint(3000, 10000)
     basic.pause(nahodna_doba)
     hra_zahajena = True
